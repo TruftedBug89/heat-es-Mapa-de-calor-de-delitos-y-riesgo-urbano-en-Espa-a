@@ -1,0 +1,125 @@
+💻 Technical Overview: HeatEs - Hotspots in Spain
+Project Goal
+HeatEs is an application designed to visualize anonymous, aggregated risk signals in Spain as a heatmap. Its primary goal is to provide a simple, privacy-focused tool for informational and preventative purposes, without exposing individual data.
+
+Core Architecture
+The project is structured into three main components:
+
+Data Ingestion & Processing (ETL): This is an automated, scheduled process that collects data from various open and moderated community sources.
+
+Data Normalization: Raw data is cleaned and standardized.
+
+Geocoding: Data is converted into geographical coordinates.
+
+Spatial Aggregation: Raw signals are aggregated into a hexagonal grid using H3 cells. This process uses thresholds to prevent individual events from standing out, ensuring a high level of anonymity.
+
+Temporal Decaying: More recent data is given more weight to ensure the heatmap reflects the current situation.
+
+Data Service (API): This backend service is responsible for serving the aggregated data.
+
+It provides the H3 cells and their corresponding aggregated values to the frontend.
+
+Data is served in a format that allows the frontend to render the heatmap layer efficiently.
+
+Frontend (UI): This is the user-facing application that visualizes the data.
+
+Base Map: A clean, neutral grey map is used to minimize distractions.
+
+Heatmap Layer: The application overlays a heatmap on the base map. This layer is dynamically generated and re-calculated with high quality as the user zooms and pans, ensuring a crisp visual representation.
+
+Temporal Filters: Users can select different time windows (1 day, 1 month, 1 year) to view the data.
+
+Vector Tiles: The heatmap data is likely rendered using vector tiles to ensure smooth performance and high-quality visuals at different zoom levels.
+
+Key Technical Features
+Privacy-First Aggregation:
+
+Uses H3 (Hierarchical, Hexagonal, and High-Resolution) geospatial indexing system for spatial aggregation. This ensures that no individual points are visible.
+
+Includes thresholds to prevent cells with a low number of events from being displayed, further enhancing privacy.
+
+The system only shows aggregated data, never individual, identifiable information.
+
+Scalable & Performant Visualization:
+
+The heatmap layer is not a static image. The 'heat' is re-calculated based on the zoom level, providing a continuous and refined visualization.
+
+The use of vector tiles and zoom-based aggregation ensures smooth and high-quality rendering without performance issues.
+
+Automated Data Pipeline:
+
+An automated ETL (Extract, Transform, Load) process is in place to collect, normalize, geocode, and aggregate data from sources automatically.
+
+The system includes logic for duplicate control and filtering out "weak" signals.
+
+Planned Future Features (Roadmap)
+AI Agent: A planned feature to use an AI agent to assist in the verification and updating of data by navigating public sources in a controlled manner.
+
+Quality Metrics: Development of metrics to measure data quality, including coverage, freshness, and stability.
+
+"Lite" Mode: A simplified version of the application for use on less powerful devices.
+
+Local Setup & Installation
+For developers, the project can be run locally:
+
+Clone the Repository: Get the project code from the repository.
+
+Configuration: Create a .env configuration file containing the necessary API keys for the base map and the data endpoints.
+
+Run Services:
+
+Start the frontend user interface.
+
+Start the data service (API).
+
+Access: Open the application in your web browser.
+
+A step-by-step guide is maintained in the project's documentation at /docs/instalacion_local.md.
+
+This technical summary is based on the details provided in the original text and is designed to provide a clear overview for anyone interested in the project's architecture and inner workings.
+
+
+
+
+
+
+
+en español, pon con que funciona si es html o que es y lo de la ia tambien i todo
+
+
+Con mucho gusto, aquí tienes la información técnica del proyecto, con los detalles que pediste sobre las tecnologías que usa, incluyendo la IA.
+
+💻 Resumen Técnico de HitS
+¿Con qué está construido?
+El proyecto HitS está dividido en tres partes principales, cada una con su propia tecnología:
+
+El Frontend (la parte que ves):
+
+La interfaz de usuario (UI) que ves en el navegador está hecha con código web, es decir, una combinación de HTML, CSS y JavaScript. El texto menciona que la app tiene una "UI" (User Interface) y se abre en un navegador, lo que confirma que es una aplicación web.
+
+Para el mapa y la capa de calor, usa tecnologías de mapas vectoriales (vectorial tiles) que se ajustan al hacer zoom. Esto es más avanzado que solo HTML/CSS y probablemente se apoya en librerías de JavaScript como Mapbox GL JS o Leaflet, que son comunes para mapas de alta calidad.
+
+El Backend (los datos y la lógica):
+
+Esta parte es un servicio de datos (API). Una API es como un "camarero" que atiende las peticiones del frontend y le sirve los datos que necesita para mostrar el mapa.
+
+La API entrega la información de las celdas H3 (las áreas hexagonales) con sus valores de "calor". La tecnología que se usa para construir este servicio no se especifica, pero podría ser algo como Node.js, Python (con Flask o Django), o Go, que son muy comunes para APIs web.
+
+El Sistema de Datos (ETL):
+
+Es el motor detrás de todo, un proceso automatizado (ETL) que no se ve, pero que es crucial. Este proceso se encarga de:
+
+Extraer (Extract): Recopila datos de diferentes fuentes abiertas.
+
+Transformar (Transform): Limpia los datos, los geocodifica (convierte direcciones en coordenadas) y los agrega en las celdas hexagonales H3.
+
+Cargar (Load): Guarda estos datos agregados para que el servicio API pueda acceder a ellos.
+
+🤖 ¿Y la Inteligencia Artificial?
+La Inteligencia Artificial aún no está implementada en HitS, pero es una parte importante del plan a futuro (Roadmap).
+
+¿Qué hará la IA? La idea es que un "agente de IA" (AI agent) ayude a verificar y actualizar los datos.
+
+¿Cómo funcionaría? Este agente navegaría por fuentes públicas de forma controlada para revisar y validar las señales de riesgo. En lugar de que una persona revise cada fuente, la IA podría ayudar a automatizar y hacer más eficiente esta tarea, asegurando que los datos que alimentan el mapa sean más precisos y estén al día.
+
+En resumen, la IA es una mejora planificada para el futuro que apoyará al sistema de datos, pero el proyecto actual funciona con su propio sistema de procesamiento y agregación de información.
